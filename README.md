@@ -1,5 +1,6 @@
 # 💰 Financial Dashboard
 
+> This repository serves as a public showcase for a private codebase. The actual implementation is maintained in a private repo.
 > Full-stack financial management platform — actively developed as a product
 
 ![.NET](https://img.shields.io/badge/.NET_10-512BD4?style=flat&logo=dotnet&logoColor=white)
