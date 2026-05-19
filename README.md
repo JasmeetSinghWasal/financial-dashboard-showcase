@@ -1,5 +1,7 @@
 # 💰 Financial Dashboard
 
+# In progress.. Will share screenshots soon or else feel free to contact me for more.
+
 - This repository serves as a public showcase for a private codebase. The actual implementation is maintained in a private repo.
 - Full-stack financial management platform — actively developed as a product
 
