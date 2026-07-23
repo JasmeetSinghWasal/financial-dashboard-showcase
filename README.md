@@ -1,9 +1,19 @@
-# 💰 Financial Dashboard
+# EzLedger 
+Invoice and customer management for small businesses. Create and manage customers, issue invoices, track payment status, and see updates in real time across every connected user.
 
-# In progress.. Will share screenshots soon or else feel free to contact me for more.
+Built as a working product rather than a demo - the goal was to design it the way I would design a system at work, including the parts that only matter once real traffic hits it.
+Actively developed. Deployed to Azure App Service with GitHub Actions CI/CD.
 
-- This repository serves as a public showcase for a private codebase. The actual implementation is maintained in a private repo.
-- Full-stack financial management platform — actively developed as a product
+**Live demo:** available on request - [email me](mailto:jswasal@gmail.com)
+and I'll share the link and a demo login.
+
+**Dashboard** - stats, insights, and recent invoices 
+> Other screenshots towards the end : 
+
+<img width="1384" alt="Dashboard" src="https://github.com/user-attachments/assets/0eccbf68-17a3-46d7-b46d-20bf5519efb6" />
+
+
+> The source code is private. This repository is a public showcase of the architecture, feature set, and engineering decisions behind it.
 
 ![.NET](https://img.shields.io/badge/.NET_10-512BD4?style=flat&logo=dotnet&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
@@ -13,106 +23,143 @@
 ![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat&logo=microsoftazure&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 
-> 🔒 Source code is private. This repository serves as a public showcase.  
-> 150+ developers have cloned this project.
-
 ---
 
-## 🧩 Architecture Overview
+## Architecture
+
+```text
 Next.js 16 (Frontend)
-↓ Server Actions + API Client
-.NET 10 Web API (Clean/Onion Architecture)
-↓ Repository + Service Pattern
-PostgreSQL (EF Core 10)
-↓ Event-Driven Pipeline
-MassTransit v8 + RabbitMQ
-↓ Consumers
-
-Persistence Worker
-SignalR Notification Worker
-OpenAI Summarization Worker
+  - Server Components + Server Actions + Client components
+  - Centralized API client
+        |
+        v
+.NET 10 Web API (Clean / Onion Architecture)
+  - Controllers -> Services -> Repositories
+  - BFF endpoints for composed dashboard reads
+        |
+        +--> PostgreSQL (EF Core 10)
+        |
+        +--> Redis (read cache)
+        |
+        v
+MassTransit v8 + RabbitMQ (event bus)
+        |
+        +--> Persistence Consumer   - writes the event/audit record
+        +--> SignalR Consumer       - pushes live updates to clients
+        +--> AI Consumer            - OpenAI summarization of comment threads
+```
 
 ---
 
-## ✅ Key Features
+## Engineering notes : 
 
-### Frontend (Next.js 16)
+---
+
+## Features
+
+### Frontend - Next.js 16
 - Server Components with server-side data fetching
-- Server Actions for form handling with Zod validation
-- AG Grid enterprise data grid for customer and invoice management
-- Feature-based folder structure (components, hooks, services, types per feature)
-- Centralized API client with shared headers and error handling
+- Server Actions for form handling, validated with Zod
+- AG Grid for customer and invoice tables - sorting, filtering, pagination
+- Real-time toast notifications driven by SignalR
+- Centralized API client handling auth headers and error normalization
 
-### Backend (.NET 10 Web API)
-- Clean/Onion Architecture with strict layer separation
-- Repository + Service pattern with interface-driven DI
-- EF Core 10 with PostgreSQL — migrations, navigation properties, projections
-- BFF (Backend for Frontend) pattern consolidating multiple API calls
+### Backend - .NET 10 Web API
+- Clean / Onion architecture with strict layer separation
+- Repository + Service pattern, interface-driven dependency injection
+- EF Core 10 against PostgreSQL - migrations, navigation properties, projections
 - API versioning with Scalar documentation
+- JWT authentication via ASP.NET Core Identity
 - Serilog structured logging
-- JWT authentication
 
-### Event-Driven Layer
-- MassTransit v8.3.x + RabbitMQ for async messaging
-- Three independent consumers:
-  - **Persistence Consumer** — saves events to database
-  - **SignalR Consumer** — pushes real-time UI updates via Azure SignalR Service
-  - **AI Consumer** — triggers OpenAI summarization of comment threads
-- Redis caching with event-driven cache invalidation
+### Event-driven layer
+- MassTransit v8 over RabbitMQ
+- Persistence, SignalR, and AI summarization consumers running independently
+- Redis caching with event-driven invalidation
 
 ### DevOps
-- One-command Docker Compose local setup
-- xUnit test coverage
-- GitHub Actions CI pipeline
+- One-command local setup with Docker Compose
+- xUnit and Moq test coverage
+- GitHub Actions CICD pipeline, deploying frontend and API to Azure App Service via OIDC
 
 ---
 
-## 🏗️ Folder Structure
+## Tech stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 16, React, TypeScript, Tailwind, AG Grid |
+| Backend | .NET 10, C#, ASP.NET Core Web API |
+| Data | Entity Framework Core 10, PostgreSQL |
+| Messaging | MassTransit v8, RabbitMQ |
+| Real time | Azure SignalR Service |
+| Caching | Redis |
+| Auth | JWT, ASP.NET Core Identity |
+| AI | Azure OpenAI |
+| DevOps | Docker, Docker Compose, GitHub Actions, Azure App Service |
+| Testing | xUnit, Moq |
+
+---
+
+## Project layout
+
+```text
 Backend/
-├── CustomerAPI/          ← .NET 10 Web API
+├── CustomerAPI/          .NET 10 Web API
 │   ├── Controllers/
 │   ├── Services/
 │   ├── Repositories/
 │   ├── Entities/
 │   ├── DTOs/
 │   └── Migrations/
-├── LogServiceWorker/     ← MassTransit Worker Service
-├── EmailWorker/          ← Email notification worker
-├── Shared.Contracts/     ← Shared enums, events, DTOs
-└── AuthSolution/         ← JWT Auth
-financial-dash/           ← Next.js 16 frontend
+├── LogServiceWorker/     MassTransit worker - persistence
+├── EmailWorker/          MassTransit worker - email notifications
+├── Shared.Contracts/     Shared events, enums, DTOs
+└── AuthSolution/         JWT authentication
+
+financial-dash/           Next.js 16 frontend
 ├── app/
 │   ├── dashboard/
-│   │   ├── customers/    ← components, hooks, services, types
-│   │   └── invoices/     ← components, hooks, services, types
+│   │   ├── customers/    components, hooks, services, types
+│   │   └── invoices/     components, hooks, services, types
 │   └── lib/
 │       └── api/
 │           └── apiClient.ts
+```
 
 ---
 
-## 🛠️ Tech Stack
+## Screenshots
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 16, React, TypeScript, Tailwind, AG Grid |
-| Backend | .NET 10, C#, ASP.NET Core Web API |
-| ORM | Entity Framework Core 10, PostgreSQL |
-| Messaging | MassTransit v8, RabbitMQ |
-| Realtime | Azure SignalR Service |
-| Caching | Redis |
-| Auth | JWT, ASP.NET Core Identity |
-| AI | Azure OpenAI |
-| DevOps | Docker, Docker Compose, GitHub Actions |
-| Testing | xUnit, Moq |
+**Login**
+
+<img width="1056" alt="Login page" src="https://github.com/user-attachments/assets/c4e3632e-0a65-42ff-8ba0-949e5bae6dec" />
+
+**Dashboard** - stats, insights, and recent invoices 
+
+<img width="1384" alt="Dashboard" src="https://github.com/user-attachments/assets/0eccbf68-17a3-46d7-b46d-20bf5519efb6" />
+
+**Loading state** - placeholders render immediately while the composed call is in flight
+
+<img width="1381" alt="Dashboard loading placeholders" src="https://github.com/user-attachments/assets/c23b036e-0e9f-41dc-9473-3b2248bc07a3" />
+
+**Real-time notifications** - SignalR pushes updates to every connected client
+
+<img width="1375" alt="Real-time SignalR notifications" src="https://github.com/user-attachments/assets/3ea21ad2-4563-4224-b003-baf60840314f" />
+
+**Invoices**
+
+<img width="1385" alt="Invoices" src="https://github.com/user-attachments/assets/7d461c04-c014-4912-b7b5-64efc048daa0" />
+
+**Customers**
+
+<img width="1380" alt="Customers" src="https://github.com/user-attachments/assets/2e81bace-2c69-4449-953f-04333414c280" />
+
 
 ---
 
-## 📸 Screenshots
-*Coming soon*
+## Author
 
----
+**Jasmeet Singh Wasal** - Senior Full Stack Developer, Greater Toronto Area
 
-## 👨‍💻 Author
-**Jasmeet Singh** — Senior Full Stack Developer, Toronto  
-[Portfolio](https://jasmeetsinghwasal.netlify.app) · [LinkedIn](https://linkedin.com/in/your-profile) · [Email](mailto:jswasal@gmail.com)
+[Portfolio](https://jasmeetsinghwasal.netlify.app) · [LinkedIn](https://linkedin.com/in/ADD-YOUR-HANDLE) · [Email](mailto:jswasal@gmail.com)
