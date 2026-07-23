@@ -143,13 +143,9 @@ financial-dash/           Next.js 16 frontend
 
 <img width="1381" alt="Dashboard loading placeholders" src="https://github.com/user-attachments/assets/c23b036e-0e9f-41dc-9473-3b2248bc07a3" />
 
-**Real-time notifications** - SignalR pushes updates to every connected client
+**Real-time notifications along with invocies page** - SignalR pushes updates to every connected client
 
 <img width="1375" alt="Real-time SignalR notifications" src="https://github.com/user-attachments/assets/3ea21ad2-4563-4224-b003-baf60840314f" />
-
-**Invoices**
-
-<img width="1385" alt="Invoices" src="https://github.com/user-attachments/assets/7d461c04-c014-4912-b7b5-64efc048daa0" />
 
 **Customers**
 
