@@ -33,7 +33,7 @@ Next.js 16 (Frontend)
   - Centralized API client
         |
         v
-.NET 10 Web API (Clean / Onion Architecture)
+.NET 10 Web API (Onion Architecture for Auth project + N Tier for others)
   - Controllers -> Services -> Repositories
   - BFF endpoints for composed dashboard reads
         |
@@ -65,8 +65,8 @@ MassTransit v8 + RabbitMQ (event bus)
 - Centralized API client handling auth headers and error normalization
 
 ### Backend - .NET 10 Web API
-- Clean / Onion architecture with strict layer separation
-- Repository + Service pattern, interface-driven dependency injection
+- Clean / Onion architecture with strict layer separation in AuthSolution only
+- Repository + Service pattern, interface-driven dependency injection, for projects other than AuthSolution
 - EF Core 10 against PostgreSQL - migrations, navigation properties, projections
 - API versioning with Scalar documentation
 - JWT authentication via ASP.NET Core Identity
@@ -115,7 +115,7 @@ Backend/
 ├── LogServiceWorker/     MassTransit worker - persistence
 ├── EmailWorker/          MassTransit worker - email notifications
 ├── Shared.Contracts/     Shared events, enums, DTOs
-└── AuthSolution/         JWT authentication
+└── AuthSolution/         Onion Architecture + JWT authentication
 
 financial-dash/           Next.js 16 frontend
 ├── app/
