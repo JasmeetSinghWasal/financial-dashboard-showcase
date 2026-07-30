@@ -1,6 +1,8 @@
 # EzLedger 
+## What is ezLedger ?
 Invoice and customer management for small businesses. Create and manage customers, issue invoices, track payment status, and see updates in real time across every connected user.
 
+Reason to build?
 Built as a working product rather than a demo - the goal was to design it the way I would design a system at work, including the parts that only matter once real traffic hits it.
 Actively developed. Deployed to Azure App Service with GitHub Actions CI/CD.
 
@@ -52,7 +54,8 @@ MassTransit v8 + RabbitMQ (event bus)
 ---
 
 ## Engineering notes : 
-
+- Using Onion for Auth Solution
+- Using monorepo for others as no need to over engineer them
 ---
 
 ## Features
