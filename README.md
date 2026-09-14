@@ -5,6 +5,7 @@ Invoice and customer management for small businesses. Create and manage customer
 Reason to build?
 Built as a working product rather than a demo - the goal was to design it the way I would design a system at work, including the parts that only matter once real traffic hits it.
 Actively developed. Deployed to Azure App Service with GitHub Actions CI/CD.
+AI Integrated for natural language search
 
 **Live demo:** available on request - [email me](mailto:jswasal@gmail.com)
 and I'll share the link and a demo login.
@@ -149,6 +150,13 @@ financial-dash/           Next.js 16 frontend
 **Real-time notifications along with invocies page** - SignalR pushes updates to every connected client
 
 <img width="1375" alt="Real-time SignalR notifications" src="https://github.com/user-attachments/assets/3ea21ad2-4563-4224-b003-baf60840314f" />
+
+**Natural Language AI Powered Search Bar**
+
+<img width="1430" height="779" alt="Screenshot 2026-09-14 at 15 21 10" src="https://github.com/user-attachments/assets/9f53c539-d6f7-4740-93ff-3dcf4c689b4b" />
+<img width="1426" height="778" alt="Screenshot 2026-09-14 at 15 21 42" src="https://github.com/user-attachments/assets/83072e9f-0cc9-424c-80fe-c18f9e7a9d84" />
+ <img width="1427" height="779" alt="Screenshot 2026-09-14 at 15 21 57" src="https://github.com/user-attachments/assets/8b15957c-8cc7-4da0-b87b-30736f7f8441" />
+
 
 **Customers**
 
