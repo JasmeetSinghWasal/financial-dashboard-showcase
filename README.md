@@ -152,10 +152,12 @@ financial-dash/           Next.js 16 frontend
 <img width="1375" alt="Real-time SignalR notifications" src="https://github.com/user-attachments/assets/3ea21ad2-4563-4224-b003-baf60840314f" />
 
 **Natural Language AI Powered Search Bar**
+<img width="1920" height="1080" alt="Screenshot 2026-09-15 at 14 24 11 (2)" src="https://github.com/user-attachments/assets/9f017395-fb1e-4efd-908a-5e0e5bda6229" />
 
-<img width="1430" height="779" alt="Screenshot 2026-09-14 at 15 21 10" src="https://github.com/user-attachments/assets/9f53c539-d6f7-4740-93ff-3dcf4c689b4b" />
-<img width="1426" height="778" alt="Screenshot 2026-09-14 at 15 21 42" src="https://github.com/user-attachments/assets/83072e9f-0cc9-424c-80fe-c18f9e7a9d84" />
- <img width="1427" height="779" alt="Screenshot 2026-09-14 at 15 21 57" src="https://github.com/user-attachments/assets/8b15957c-8cc7-4da0-b87b-30736f7f8441" />
+**Streaming output**
+<img width="1849" height="952" alt="Screenshot 2026-09-15 at 14 24 56 (2)" src="https://github.com/user-attachments/assets/4706e9b7-a4af-4729-9329-6e2d006fb2d5" />
+<img width="1862" height="960" alt="fixed_clean" src="https://github.com/user-attachments/assets/700a771f-f99b-4475-b322-119a4f0ac698" />
+
 
 
 **Customers**
